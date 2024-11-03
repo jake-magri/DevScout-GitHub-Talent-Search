@@ -6,28 +6,52 @@ const CandidateSearch = () => {
   const [searchInput, setSearchInput] = useState<string>('');
 
   const [currentCandidate, setCurrentCandidate] = useState<Candidate>({
-    name: 'This is the initalized name',
-    username: 'This is the initalized username',
-    location: 'This is the initalized location',
-    bio:'This is initialized bio',
-    avatar_url: 'This is the avatar picture',
-    email: 'This is the email',
-    html_url: 'This is the url',
-    company: 'This is the company',
+    name: '',
+    username: '',
+    location: '',
+    bio:'',
+    avatar_url: '',
+    email: '',
+    html_url: '',
+    company: '',
   });
 
   const searchGithubCandidates = async () => {
-    const data: Candidate = await searchGithub();
-    console.log(`This is the response from searchGithub: ${data}`)
-    setCurrentCandidate(data);
-  }
+    try {
+      const users = await searchGithub();
+      console.log(`Fetched list of users:`, users);
+      
+      if (users.length === 0) {
+        console.warn('No users found');
+        return;
+      }
 
-  const searchForCandidateByUsername = async () => {
-    // event.preventDefault();
-    // const data: Candidate = await searchGithubUser(username);
-    console.log('GitHub Token:', import.meta.env.VITE_GITHUB_TOKEN);
-    // setCurrentCandidate(data);
+      // Select a random user from the list
+      const randomUser = users[Math.floor(Math.random() * users.length)];
+
+      // Fetch detailed data for the selected user
+      const userData = await searchGithubUser(randomUser.login);
+      console.log('Fetched candidate details:', userData);
+
+      setCurrentCandidate({
+        name: userData.name || 'N/A',
+        username: userData.login || 'N/A',
+        location: userData.location || 'N/A',
+        bio: userData.bio || 'N/A',
+        avatar_url: userData.avatar_url || '',
+        email: userData.email || 'N/A',
+        html_url: userData.html_url || '',
+        company: userData.company || 'N/A',
+      });
+    } catch (err) {
+      console.error('An error occurred while fetching candidate data:', err);
+    }
   };
+
+  // Fetch candidate on page load
+  useEffect(() => {
+    searchGithubCandidates();
+  }, []);
 
   return (
   <>
@@ -43,7 +67,7 @@ const CandidateSearch = () => {
     </div>
   </div>
   <div className="action-buttons">
-        <button className="delete-button" onClick={searchForCandidateByUsername}>-</button>
+        <button className="delete-button" onClick={searchGithubCandidates}>-</button>
         <button className="add-button" onClick={searchGithubCandidates}>+</button>
   </div>
   </>
