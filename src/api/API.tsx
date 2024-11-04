@@ -34,7 +34,7 @@ const searchGithub = async () => {
   }
 };
 
-// 
+// get user by username
 const searchGithubUser = async (username: string) => {
   try {
     const response = await fetch(`https://api.github.com/users/${username}`, {

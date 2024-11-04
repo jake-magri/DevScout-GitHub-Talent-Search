@@ -83,6 +83,8 @@ const CandidateSearch = () => {
     <>
       <h1>Candidate Search</h1>
       <div className="candidate-card">
+
+        {/* return empty string if candidate doesn't have image */}
         <img className='candidate-image'src={currentCandidate.avatar_url || ''} alt="Candidate Avatar" />
         <div className="candidate-info">
           <h2>{`${currentCandidate.name} (${currentCandidate.username})`}</h2>
@@ -93,6 +95,7 @@ const CandidateSearch = () => {
         </div>
       </div>
       <div className="action-buttons">
+        
         {/* attach event handlers to buttons */}
         <button className="delete-button" onClick={searchGithubCandidates}>-</button>
         <button className="add-button" onClick={addCandidateToLocalStorage}>+</button>
