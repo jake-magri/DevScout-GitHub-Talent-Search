@@ -1,33 +1,43 @@
-# React + TypeScript + Vite
+# DevScout GitHub Talent Search
+![License](https://img.shields.io/badge/MIT%20License-purple)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Typescript React talent search application that uses GitHub's RESTful API to and client routing to search for, save, and delete GitHub user profiles.
 
-* [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md), which uses [Babel](https://babeljs.io/) for Fast Refresh
-* [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc), which uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Installation](#installation)
+- [Usage](#usage)
+- [How to Contribute](#how-to-contribute)
+- [Tests](#tests)
+- [License](#license)
+- [Questions](#questions)
 
-If you're developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation
 
-* Configure the top-level `parserOptions` property as follows:
+This application is deployed and can be accessed using the following link.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Usage
 
-* Replace `plugin:@typescript-eslint/recommended` with `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`.
-* Optionally, add `plugin:@typescript-eslint/stylistic-type-checked`.
-* Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` and `plugin:react/jsx-runtime` to the `extends` list.
+### Demo Screenshot
+![Still demo of application.](assets/images/DevScout.png)
 
----
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+### Usage Information
+On app load, the user is presented with a random github profile and  two buttons. The red button declines the candidate and display another random candidate. The green button adds the candidate to the prospective candidates list on the second tab. The user can click the red button next to each line item to delete it from the prospective candidates list.
+
+## How to Contribute
+
+Contribute freely! Please add an assoicated github issue ticket to track your feature.
+
+## Tests
+
+This application has been functionally tested using Insomnia.
+
+## License 
+This application is covered under MIT License.
+See the [full license](https://opensource.org/licenses/MIT) for more information.
+
+## Questions
+
+To reach me with additional questions please message me on either GitHub at jake-magri or via email jake.magri2@gmail.com.
