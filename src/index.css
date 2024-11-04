@@ -152,9 +152,8 @@ tbody tr:nth-child(odd) {
 .delete-button, .add-button {
   width: 40px;
   height: 40px;
-  font-size: 1.5em;
+  font-size: 9px;
   color: white;
-  background-color: #1a1a1a;
   border-radius: 50%;
   border: none;
   cursor: pointer;

@@ -2,7 +2,7 @@
 // name, username, location, avatar, email, html_url, and company
 export default interface Candidate {
     readonly name: string | null;
-    readonly username: string | null;
+    readonly username: string;
     readonly location: string | null;
     readonly bio: string | null;
     readonly avatar_url: string | null;

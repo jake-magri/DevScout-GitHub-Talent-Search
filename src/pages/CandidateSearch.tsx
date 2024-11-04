@@ -42,15 +42,18 @@ const CandidateSearch = () => {
 
   // Function to add the current candidate to local storage
   const addCandidateToLocalStorage = () => {
-    const storedCandidates = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
-
-    if (currentCandidate.name) {
+    // Only save candidate if username is not 'N/A'
+    if (currentCandidate.username !== 'N/A') {
+      const storedCandidates = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
       const updatedCandidates = [...storedCandidates, currentCandidate];
       localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
+      console.log('Candidate saved:', currentCandidate);
+
+      // Fetch the next candidate after adding
+      searchGithubCandidates();
     } else {
-      console.warn('No candidate to save');
+      console.warn('Cannot save candidate with username:', currentCandidate.username);
     }
-    searchGithubCandidates();
   };
 
   // Fetch candidate on page load
@@ -62,7 +65,7 @@ const CandidateSearch = () => {
     <>
       <h1>CandidateSearch</h1>
       <div className="candidate-card">
-        <img src={currentCandidate.avatar_url || ''} alt="Candidate Avatar" />
+        <img className='candidate-image'src={currentCandidate.avatar_url || ''} alt="Candidate Avatar" />
         <div className="candidate-info">
           <h2>{`${currentCandidate.name} (${currentCandidate.username})`}</h2>
           <p>Location: {currentCandidate.location}</p>

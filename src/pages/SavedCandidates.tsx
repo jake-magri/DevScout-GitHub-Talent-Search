@@ -10,6 +10,14 @@ const SavedCandidates = () => {
     setCandidates(storedCandidates); // Set the candidates state
   };
 
+  const deleteCandidateFromLocalStorage = (username: string) => {
+    const updatedCandidates = candidates.filter(candidate => candidate.username !== username);
+    setCandidates(updatedCandidates);
+
+    // Update the local storage with the modified array
+    localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
+  }
+
   // Fetch candidates when the component mounts
   useEffect(() => {
     fetchCandidatesFromLocalStorage();
@@ -44,7 +52,7 @@ const SavedCandidates = () => {
               <td>{candidate.company || 'N/A'}</td>
               <td>{candidate.bio || 'N/A'}</td>
               <td>
-                <button onClick={() => console.log(`Reject ${candidate.name}`)}>Reject</button>
+                <button className='delete-button' onClick={() => deleteCandidateFromLocalStorage(candidate.username)}>Reject</button>
               </td>
             </tr>
           ))}
