@@ -3,13 +3,11 @@ import { searchGithub, searchGithubUser } from '../api/API';
 import type Candidate from '../interfaces/Candidate.interface';
 
 const CandidateSearch = () => {
-  const [searchInput, setSearchInput] = useState<string>('');
-
   const [currentCandidate, setCurrentCandidate] = useState<Candidate>({
     name: '',
     username: '',
     location: '',
-    bio:'',
+    bio: '',
     avatar_url: '',
     email: '',
     html_url: '',
@@ -19,19 +17,13 @@ const CandidateSearch = () => {
   const searchGithubCandidates = async () => {
     try {
       const users = await searchGithub();
-      console.log(`Fetched list of users:`, users);
-      
       if (users.length === 0) {
         console.warn('No users found');
         return;
       }
 
-      // Select a random user from the list
       const randomUser = users[Math.floor(Math.random() * users.length)];
-
-      // Fetch detailed data for the selected user
       const userData = await searchGithubUser(randomUser.login);
-      console.log('Fetched candidate details:', userData);
 
       setCurrentCandidate({
         name: userData.name || 'N/A',
@@ -48,29 +40,43 @@ const CandidateSearch = () => {
     }
   };
 
+  // Function to add the current candidate to local storage
+  const addCandidateToLocalStorage = () => {
+    const storedCandidates = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
+
+    if (currentCandidate.name) {
+      const updatedCandidates = [...storedCandidates, currentCandidate];
+      localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
+    } else {
+      console.warn('No candidate to save');
+    }
+    searchGithubCandidates();
+  };
+
   // Fetch candidate on page load
   useEffect(() => {
     searchGithubCandidates();
   }, []);
 
   return (
-  <>
-  <h1>CandidateSearch</h1>
-  <div className="candidate-card">
-    <img src={currentCandidate.avatar_url || ''}></img>
-    <div className="candidate-info">
-      <h2>{`${currentCandidate.name} (${currentCandidate.username})`}</h2>
-      <p>Location: {currentCandidate.location}</p>
-      <p>Company: {currentCandidate.company}</p>
-      <p>Email: <a href={`mailto:${currentCandidate.email}`}>{currentCandidate.email}</a></p>
-      <p>Bio: {currentCandidate.bio}</p>
-    </div>
-  </div>
-  <div className="action-buttons">
+    <>
+      <h1>CandidateSearch</h1>
+      <div className="candidate-card">
+        <img src={currentCandidate.avatar_url || ''} alt="Candidate Avatar" />
+        <div className="candidate-info">
+          <h2>{`${currentCandidate.name} (${currentCandidate.username})`}</h2>
+          <p>Location: {currentCandidate.location}</p>
+          <p>Company: {currentCandidate.company}</p>
+          <p>Email: <a href={`mailto:${currentCandidate.email}`}>{currentCandidate.email}</a></p>
+          <p>Bio: {currentCandidate.bio}</p>
+        </div>
+      </div>
+      <div className="action-buttons">
         <button className="delete-button" onClick={searchGithubCandidates}>-</button>
-        <button className="add-button" onClick={searchGithubCandidates}>+</button>
-  </div>
-  </>
-)};
+        <button className="add-button" onClick={addCandidateToLocalStorage}>+</button>
+      </div>
+    </>
+  );
+};
 
 export default CandidateSearch;
