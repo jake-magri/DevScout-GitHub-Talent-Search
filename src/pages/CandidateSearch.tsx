@@ -63,7 +63,7 @@ const CandidateSearch = () => {
 
   return (
     <>
-      <h1>CandidateSearch</h1>
+      <h1>Candidate Search</h1>
       <div className="candidate-card">
         <img className='candidate-image'src={currentCandidate.avatar_url || ''} alt="Candidate Avatar" />
         <div className="candidate-info">

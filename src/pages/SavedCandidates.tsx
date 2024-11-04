@@ -26,7 +26,7 @@ const SavedCandidates = () => {
   return (
     <>
       <h1>Potential Candidates</h1>
-      <table>
+      <table className='table'>
         <thead>
           <tr>
             <th>Image</th>
@@ -52,7 +52,7 @@ const SavedCandidates = () => {
               <td>{candidate.company || 'N/A'}</td>
               <td>{candidate.bio || 'N/A'}</td>
               <td>
-                <button className='delete-button' onClick={() => deleteCandidateFromLocalStorage(candidate.username)}>Reject</button>
+                <button className='delete-button' onClick={() => deleteCandidateFromLocalStorage(candidate.username)}>-</button>
               </td>
             </tr>
           ))}
