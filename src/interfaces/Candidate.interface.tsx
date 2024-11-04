@@ -1,6 +1,6 @@
-// TODO: Create an interface for the Candidate objects returned by the API
-// name, username, location, avatar, email, html_url, and company
+// An interface for the Candidate objects returned by the API
 export default interface Candidate {
+  // Requires name, username, location, avatar, email, html_url, and company
     readonly name: string | null;
     readonly username: string;
     readonly location: string | null;

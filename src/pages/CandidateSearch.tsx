@@ -3,6 +3,7 @@ import { searchGithub, searchGithubUser } from '../api/API';
 import type Candidate from '../interfaces/Candidate.interface';
 
 const CandidateSearch = () => {
+  // create stateful object to hold onto current candidate from api that uses candidate interface
   const [currentCandidate, setCurrentCandidate] = useState<Candidate>({
     name: '',
     username: '',
@@ -14,17 +15,27 @@ const CandidateSearch = () => {
     company: '',
   });
 
+  // Function to get a random candidate from the list of candidates
   const searchGithubCandidates = async () => {
     try {
+
+      // call function to query api
       const users = await searchGithub();
+
+      // return early if array is empty
       if (users.length === 0) {
         console.warn('No users found');
         return;
       }
 
+      // select a random user and search for them by their login
+
       const randomUser = users[Math.floor(Math.random() * users.length)];
+
+      // search for user by username
       const userData = await searchGithubUser(randomUser.login);
 
+      // set state with current user's data 
       setCurrentCandidate({
         name: userData.name || 'N/A',
         username: userData.login || 'N/A',
@@ -42,11 +53,18 @@ const CandidateSearch = () => {
 
   // Function to add the current candidate to local storage
   const addCandidateToLocalStorage = () => {
-    // Only save candidate if username is not 'N/A'
+    // Only save candidate if username is not 'N/A' for getting objects
     if (currentCandidate.username !== 'N/A') {
-      const storedCandidates = JSON.parse(localStorage.getItem('savedCandidates') || '[]');
+      // get candidates from local storage
+      const storedCandidates = JSON.parse(localStorage.getItem('prospectiveCandidates') || '[]');
+
+      // append new candidate object to array
       const updatedCandidates = [...storedCandidates, currentCandidate];
-      localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
+
+      // set local storage with updated candidates
+      localStorage.setItem('prospectiveCandidates', JSON.stringify(updatedCandidates));
+
+      // print structure of candidate to debug
       console.log('Candidate saved:', currentCandidate);
 
       // Fetch the next candidate after adding
@@ -75,6 +93,7 @@ const CandidateSearch = () => {
         </div>
       </div>
       <div className="action-buttons">
+        {/* attach event handlers to buttons */}
         <button className="delete-button" onClick={searchGithubCandidates}>-</button>
         <button className="add-button" onClick={addCandidateToLocalStorage}>+</button>
       </div>
