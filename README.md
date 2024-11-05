@@ -17,6 +17,7 @@ Typescript React talent search application that uses GitHub's RESTful API to and
 ## Installation
 
 This application is deployed and can be accessed using the following link.
+[DevScout](https://devscout.onrender.com/)
 
 ## Usage
 
