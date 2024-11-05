@@ -56,13 +56,13 @@ const CandidateSearch = () => {
     // Only save candidate if username is not 'N/A' for getting objects
     if (currentCandidate.username !== 'N/A') {
       // get candidates from local storage
-      const storedCandidates = JSON.parse(localStorage.getItem('prospectiveCandidates') || '[]');
+      const storedCandidates = JSON.parse(localStorage.getItem('potentialCandidates') || '[]');
 
       // append new candidate object to array
       const updatedCandidates = [...storedCandidates, currentCandidate];
 
       // set local storage with updated candidates
-      localStorage.setItem('prospectiveCandidates', JSON.stringify(updatedCandidates));
+      localStorage.setItem('potentialCandidates', JSON.stringify(updatedCandidates));
 
       // print structure of candidate to debug
       console.log('Candidate saved:', currentCandidate);
